@@ -1,7 +1,6 @@
 import { tweetsData } from './data.js'
 import { v4 as uuidv4 } from 'https://jspm.dev/uuid';
 
-const tweetInput = document.getElementById('tweet-input')
 
 document.addEventListener('click', function(e){
     if(e.target.dataset.like){
@@ -53,23 +52,29 @@ function handleReplyClick(replyId){
 }
 
 function handleTweetBtnClick(){
+    const tweetInput = document.getElementById('tweet-input')
+
 /*
 Challenge:
-1. Add the new tweet object to 'tweetsData'
-   and make it render at the top of the feed. 
-*/ 
-    tweetsData.unshift({
-        handle: `@Scrimba`,
-        profilePic: `images/scrimbalogo.png`,
-        likes: 0,
-        retweets: 0,
-        tweetText: tweetInput.value,
-        replies: [],
-        isLiked: false,
-        isRetweeted: false,
-        uuid: uuidv4()
-    })
+1. No empty tweets!
+2. Clear the textarea after tweeting!
+*/
+    if(tweetInput.value){
+        tweetsData.unshift({
+            handle: `@Scrimba`,
+            profilePic: `images/scrimbalogo.png`,
+            likes: 0,
+            retweets: 0,
+            tweetText: tweetInput.value,
+            replies: [],
+            isLiked: false,
+            isRetweeted: false,
+            uuid: uuidv4()
+        })
     render()
+    tweetInput.value = ''
+    }
+
 }
 
 function getFeedHtml(){
